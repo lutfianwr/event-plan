@@ -7,7 +7,7 @@ const Header = () => {
   //   const loggedout = !loggedin;
 
   return (
-    <nav className="flex items-center justify-between flex-wrap bg-gray-400 p-6">
+    <nav className="flex items-center justify-between flex-wrap bg-gray-200 p-6">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
         <img src="" alt="logo" className="h-8" />
       </div>
