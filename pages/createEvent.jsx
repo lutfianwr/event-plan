@@ -4,7 +4,7 @@ import Layout from "../components/layout";
 const createEvent = () => {
   return (
     <Layout>
-      <h1 className="text-2xl font-bold xl:ml-28 pt-10">Create Event</h1>
+      <h1 className="text-2xl font-bold xl:ml-28 pt-5">Create Event</h1>
       <div className="flex justify-center p-10">
         <form className="border-2 border-grey-600 p-10 mx-16 mb-5 w-full bg-white">
           <div className="grid grid-cols-2 gap-4">
