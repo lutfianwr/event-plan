@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { CgFormatSlash } from "react-icons/cg";
+import User from "./User";
 
 const Header = () => {
   //   const loggedin = localStorage.getItem("token");
@@ -50,6 +51,7 @@ const Header = () => {
             SIGN UP
           </Link>
         </div>
+        <User></User>
       </div>
     </nav>
   );

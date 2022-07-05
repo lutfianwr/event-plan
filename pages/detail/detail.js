@@ -9,7 +9,7 @@ import Head from "next/head";
 function detail() {
   return (
     <Layout>
-      <div className="bg-red-200 h-full p-5 lg:px-20">
+      <div className=" h-full p-5 lg:px-20">
         <div className="bg-white">
           <div className="hero flex justify-center w-fit">
             <div className=" flex flex-col lg:flex-row">
