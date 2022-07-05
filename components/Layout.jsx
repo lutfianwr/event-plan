@@ -8,7 +8,7 @@ const Layout = (props) => {
     <div className="h-screen w-full overflow-auto">
       <div className="">
         <Head>
-          <title>Pokemon App</title>
+          <title>Event App</title>
           <meta name="description" content="pokemon catcher app" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
