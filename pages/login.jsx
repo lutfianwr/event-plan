@@ -3,15 +3,17 @@ import Link from 'next/link';
 import axios from 'axios';
 import { useState } from 'react';
 import swal from 'sweetalert';
+import { useRouter } from 'next/router';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const router = useRouter();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(`https://virtserver.swaggerhub.com/iswanulumam/EventPlanningApp/1.0.0/login`, {
+      .post('http://3.86.179.206:80/login', {
         email: email,
         password: password,
       })
@@ -19,10 +21,11 @@ function Login() {
         // handle success
         console.log(response);
 
-        localStorage.setItem('token', response.data.token);
-        console.log(response.data.token);
+        localStorage.setItem('token', response.data.data.token);
+        console.log(response.data.data.token);
         swal('Good job!', 'Succecss Login', 'success');
-        // navigate('/', { replace: true });
+
+        router.push('/');
       })
       .catch(function (error) {
         // handle error
