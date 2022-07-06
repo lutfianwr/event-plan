@@ -14,7 +14,7 @@ const Layout = (props) => {
         </Head>
         <div>
           <Header></Header>
-          <div className="bg-red-200"> {props.children}</div>
+          <div className="bg-white"> {props.children}</div>
           <Footer></Footer>
         </div>
       </div>
