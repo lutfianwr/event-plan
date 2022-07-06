@@ -1,14 +1,40 @@
-import React from "react";
+// import { useEffect } from "react";
+// import L from "leaflet";
+// import * as ReactLeaflet from "react-leaflet";
+// import "leaflet/dist/leaflet.css";
 
-function Map() {
-  return (
-    <div id="map">
-      <img
-        src="https://developers.google.com/static/codelabs/maps-platform/maps-platform-101-js/img/4f372caab95d7499.png"
-        alt=""
-      />
-    </div>
-  );
-}
+// import styles from "./Map.module.css";
 
-export default Map;
+// import iconRetinaUrl from "leaflet/dist/images/marker-icon-2x.png";
+// import iconUrl from "leaflet/dist/images/marker-icon.png";
+// import shadowUrl from "leaflet/dist/images/marker-shadow.png";
+
+// const { MapContainer, MapConsumer } = ReactLeaflet;
+
+// const Map = ({ children, className, ...rest }) => {
+//   let mapClassName = styles.map;
+
+//   if (className) {
+//     mapClassName = `${mapClassName} ${className}`;
+//   }
+
+//   useEffect(() => {
+//     (async function init() {
+//       delete L.Icon.Default.prototype._getIconUrl;
+
+//       L.Icon.Default.mergeOptions({
+//         iconRetinaUrl: iconRetinaUrl.src,
+//         iconUrl: iconUrl.src,
+//         shadowUrl: shadowUrl.src,
+//       });
+//     })();
+//   }, []);
+
+//   return (
+//     <MapContainer className={mapClassName} {...rest}>
+//       <MapConsumer>{(map) => children(ReactLeaflet, map)}</MapConsumer>
+//     </MapContainer>
+//   );
+// };
+
+// export default Map;

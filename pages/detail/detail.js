@@ -7,6 +7,8 @@ import Map from "../../components/Map";
 import Head from "next/head";
 
 function detail() {
+  // const DEFAULT_CENTER = [-6.169825000000018, 106.83092599999998];
+
   return (
     <Layout>
       <div className=" h-full p-5 lg:px-20">
@@ -84,7 +86,25 @@ function detail() {
             <CommentForms></CommentForms>
             <CommentList></CommentList>
           </div>
-          <Map></Map>
+          {/* <div className="peta">
+            <h1 className={styles.title}>Next.js Leaflet Starter</h1>
+
+            <Map className={styles.homeMap} center={DEFAULT_CENTER} zoom={12}>
+              {({ TileLayer, Marker, Popup }) => (
+                <>
+                  <TileLayer
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                  />
+                  <Marker position={DEFAULT_CENTER}>
+                    <Popup>
+                      A pretty CSS3 popup. <br /> Easily customizable.
+                    </Popup>
+                  </Marker>
+                </>
+              )}
+            </Map>
+          </div> */}
         </div>
       </div>
     </Layout>
