@@ -1,5 +1,5 @@
 import React from "react";
-import Layout from "../components/layout";
+import Layout from "../components/Layout";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -32,7 +32,6 @@ const CreateEvent = () => {
     })
       .then((response) => {
         // handle success
-        console.log(response);
         swal("Good job!", "Sukses Create Event ", "success");
         router.push("/");
       })

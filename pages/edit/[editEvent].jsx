@@ -1,5 +1,5 @@
 import React from "react";
-import Layout from "../../components/layout";
+import Layout from "../../components/Layout";
 import { useState } from "react";
 import swal from "sweetalert";
 import { useRouter } from "next/router";

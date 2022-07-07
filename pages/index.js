@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import Hero from "../components/Hero";
-import Layout from "../components/layout";
+import Layout from "../components/Layout";
 import styles from "../styles/Home.module.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
@@ -46,7 +46,6 @@ export default function Home(props) {
       <Layout>
         <Hero />
         <h1 className="text-2xl font-bold md:ml-12 pt-5">Event</h1>
-        {console.log(event)}
         <div className="grid grid-flow-row auto-rows-max grid-cols-2 md:grid-cols-4 lg:grid-cols-4 m-2">
           {event.map((item) => (
             <Card

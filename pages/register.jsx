@@ -19,9 +19,7 @@ function Register() {
         password: password,
       })
       .then((response) => {
-        console.log(response);
         localStorage.setItem("token", response.data.token);
-        console.log(response.data.token);
         swal("Good job!", "Success Signup", "success");
         router.push("/login");
       })

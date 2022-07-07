@@ -1,9 +1,8 @@
 import React from "react";
-import Layout from "../../components/layout";
+import Layout from "../../components/Layout";
 import Attendees from "../../components/Attendees";
 import CommentForms from "../../components/CommentForms";
 import CommentList from "../../components/CommentList";
-import Map from "../../components/Map";
 import Head from "next/head";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
@@ -15,6 +14,9 @@ const Detail = () => {
   const { id } = router.query;
   const [comments, setComments] = useState([]);
   const [commentInput, setCommentInput] = useState("");
+  let currentid = id;
+  console.log(currentid);
+  console.log(id);
 
   useEffect(() => {
     fetchData();

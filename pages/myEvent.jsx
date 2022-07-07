@@ -1,6 +1,6 @@
 import React from "react";
 import CardEvent from "../components/CardEvent";
-import Layout from "../components/layout";
+import Layout from "../components/Layout";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import swal from "sweetalert";
