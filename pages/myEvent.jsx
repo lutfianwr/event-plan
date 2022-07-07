@@ -19,20 +19,17 @@ const MyEvent = () => {
 
   const myEvent = () => {
     axios
-      .get(`http://3.86.179.206:80/my-events`, {
+      .get(`https://group3.altaproject.online/my-events`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
       })
       .then((response) => {
-        // handle success
-        console.log(response);
         const results = response.data.data;
         setEvent(results);
       })
       .catch(function (error) {
-        // handle error
         console.log(error);
       })
       .finally(() => {
@@ -42,15 +39,13 @@ const MyEvent = () => {
 
   const handleRemove = (id) => {
     axios
-      .delete(`http://3.86.179.206:80/events/${id}`, {
+      .delete(`https://group3.altaproject.online/events/${id}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
       })
       .then((response) => {
-        // handle success
-        console.log(response);
         const results = response.data;
         setRemove(results);
         swal({
@@ -59,7 +54,6 @@ const MyEvent = () => {
         });
       })
       .catch(function (error) {
-        // handle error
         console.log(error);
       })
       .finally(() => {

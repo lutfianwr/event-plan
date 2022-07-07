@@ -3,19 +3,24 @@ import Layout from "../../components/layout";
 import Attendees from "../../components/Attendees";
 import CommentForms from "../../components/CommentForms";
 import CommentList from "../../components/CommentList";
-//import Map from "../../components/Map";
+import Map from "../../components/Map";
 import Head from "next/head";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
-function Detail() {
+const Detail = () => {
   const [event, setEvent] = useState([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
   const { id } = router.query;
+  const [comments, setComments] = useState([]);
+  const [commentInput, setCommentInput] = useState("");
 
   useEffect(() => {
     fetchData();
+  }, []);
+
+  useEffect(() => {
     getComments();
   }, []);
 
@@ -24,10 +29,12 @@ function Detail() {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     };
-    await fetch(`http://3.86.179.206:80/events/${id}`, requestOptions)
+    await fetch(
+      `https://group3.altaproject.online/events/${id}`,
+      requestOptions
+    )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setEvent(data);
       })
       .catch((error) => {
@@ -43,17 +50,45 @@ function Detail() {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     };
-    await fetch(`http://3.86.179.206:80/comments/${id}`, requestOptions)
+    await fetch(
+      `https://group3.altaproject.online/comments/${id}`,
+      requestOptions
+    )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        setEvent(data);
+        setComments(data.data);
       })
       .catch((error) => {
         console.log(error);
       })
       .finally(() => {
         setLoading(false);
+      });
+  };
+
+  const postComment = async (props) => {
+    setLoading(true);
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+
+      body: JSON.stringify({
+        comment: commentInput,
+      }),
+    };
+    await fetch(`http://3.86.179.206:80/comments/${id}`, requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        getComments();
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        //setLoading(false);
       });
   };
 
@@ -67,7 +102,6 @@ function Detail() {
     return (
       <Layout>
         <div className="bg-red-200 h-full p-5 lg:px-20">
-          {console.log(event.data.image)}
           <div className="bg-white">
             <div className="hero flex justify-center w-full">
               <div className=" flex flex-col lg:flex-row">
@@ -85,9 +119,9 @@ function Detail() {
                     </h5>
 
                     <p className="text-gray-600 text-xs">Hosted by</p>
-                    {/* <p className="text-gray-900 text-s pb-2 lg:pb-5">
+                    <p className="text-gray-900 text-s pb-2 lg:pb-5">
                       {event.data.user.name}
-                    </p> */}
+                    </p>
                     <p className="text-gray-600 text-s pb-2">
                       {event.data.category}
                     </p>
@@ -134,14 +168,24 @@ function Detail() {
             </div>
 
             <div>
-              <CommentForms></CommentForms>
-              <CommentList></CommentList>
+              <CommentForms
+                onChange={(e) => setCommentInput(e.target.value)}
+                submitComment={() => postComment()}
+              />
+
+              {comments.map((comment) => (
+                <CommentList
+                  key={comment.id}
+                  comment={comment.comment}
+                  name={comment.name}
+                />
+              ))}
             </div>
           </div>
         </div>
       </Layout>
     );
   }
-}
+};
 
 export default Detail;

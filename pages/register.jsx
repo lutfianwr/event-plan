@@ -13,27 +13,21 @@ function Register() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(`http://3.86.179.206:80/users`, {
+      .post(`https://group3.altaproject.online/users`, {
         name: name,
         email: email,
         password: password,
       })
       .then((response) => {
-        // handle success
         console.log(response);
-
         localStorage.setItem("token", response.data.token);
         console.log(response.data.token);
-        swal("Good job!", "Succecss Signup", "success");
+        swal("Good job!", "Success Signup", "success");
         router.push("/login");
-
-        // navigate('/', { replace: true });
       })
       .catch(function (error) {
-        // handle error
         console.log(error);
       });
-    // .finally(() => setLoading(false));
   };
 
   return (
