@@ -1,11 +1,11 @@
-import React from 'react';
-import CardEvent from '../components/CardEvent';
-import Layout from '../components/layout';
-import axios from 'axios';
-import { useState, useEffect } from 'react';
-import swal from 'sweetalert';
-import { Route } from '@mui/icons-material';
-import { useRouter } from 'next/router';
+import React from "react";
+import CardEvent from "../components/CardEvent";
+import Layout from "../components/layout";
+import axios from "axios";
+import { useState, useEffect } from "react";
+import swal from "sweetalert";
+import { Route } from "@mui/icons-material";
+import { useRouter } from "next/router";
 
 const MyEvent = () => {
   const [event, setEvent] = useState([]);
@@ -21,8 +21,8 @@ const MyEvent = () => {
     axios
       .get(`http://3.86.179.206:80/my-events`, {
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + localStorage.getItem('token'),
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
         },
       })
       .then((response) => {
@@ -44,8 +44,8 @@ const MyEvent = () => {
     axios
       .delete(`http://3.86.179.206:80/events/${id}`, {
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + localStorage.getItem('token'),
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
         },
       })
       .then((response) => {
@@ -54,8 +54,8 @@ const MyEvent = () => {
         const results = response.data;
         setRemove(results);
         swal({
-          title: 'Good job!',
-          text: 'SUKSES DELETE DATA',
+          title: "Good job!",
+          text: "SUKSES DELETE DATA",
         });
       })
       .catch(function (error) {
@@ -79,7 +79,15 @@ const MyEvent = () => {
       <Layout>
         <div className="flex justify-center p-10">
           {event.map((item) => (
-            <CardEvent key={item.id} title={item.event_name} location={item.category} image={item.image} date={item.date} onClick={() => handleRemove(item.id)} onClickEdit={() => router.push(`edit/${item.id}`)} />
+            <CardEvent
+              key={item.id}
+              title={item.event_name}
+              location={item.category}
+              image={item.image}
+              date={item.date}
+              onClick={() => handleRemove(item.id)}
+              onClickEdit={() => router.push(`edit/${item.id}`)}
+            />
           ))}
         </div>
       </Layout>

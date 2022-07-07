@@ -1,19 +1,19 @@
-import React from 'react';
-import Layout from '../components/layout';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useRouter } from 'next/router';
-import swal from 'sweetalert';
+import React from "react";
+import Layout from "../components/layout";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { useRouter } from "next/router";
+import swal from "sweetalert";
 
 const CreateEvent = () => {
-  const [description, setDescription] = useState('');
-  const [event_name, setName] = useState('');
-  const [category, setCategory] = useState('');
+  const [description, setDescription] = useState("");
+  const [event_name, setName] = useState("");
+  const [category, setCategory] = useState("");
   const [quota, setQuota] = useState();
-  const [image, setImage] = useState('');
-  const [date, setDate] = useState('');
-  const [time, setTime] = useState('');
-  const [objSubmit, setObjSubmit] = useState('');
+  const [image, setImage] = useState("");
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+  const [objSubmit, setObjSubmit] = useState("");
   const router = useRouter();
 
   const addEvent = (e) => {
@@ -23,18 +23,18 @@ const CreateEvent = () => {
     }
     e.preventDefault();
     axios({
-      method: 'post',
+      method: "post",
       url: `http://3.86.179.206:80/events`,
       data: formData,
       headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        Authorization: "Bearer " + localStorage.getItem("token"),
       },
     })
       .then((response) => {
         // handle success
         console.log(response);
-        swal('Good job!', 'Sukses Create Event ', 'success');
-        router.push('/');
+        swal("Good job!", "Sukses Create Event ", "success");
+        router.push("/");
       })
       .catch(function (error) {
         // handle error
@@ -53,23 +53,42 @@ const CreateEvent = () => {
     <Layout>
       <h1 className="text-2xl font-bold xl:ml-28 pt-5">Create Event</h1>
       <div className="flex justify-center p-10">
-        <form className="border-2 border-grey-600 p-10 mx-16 mb-5 w-full bg-white" onSubmit={(e) => addEvent(e)}>
+        <form
+          className="border-2 border-grey-600 p-10 mx-16 mb-5 w-full bg-white"
+          onSubmit={(e) => addEvent(e)}
+        >
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-col col-span-2">
               <p className="font-bold">Basic Info</p>
             </div>
             <div className="flex flex-col col-span-2">
               <label htmlFor="subject">Event Title</label>
-              <input type="text" id="event-title" name="event-title" className="form-input px-3 py-2 rounded-md border-2 border-grey-600" onChange={(e) => handleChange(e.target.value, 'event_name')} />
+              <input
+                type="text"
+                id="event-title"
+                name="event-title"
+                className="form-input px-3 py-2 rounded-md border-2 border-grey-600"
+                onChange={(e) => handleChange(e.target.value, "event_name")}
+              />
             </div>
             <div className="flex flex-col col-span-2">
               <label htmlFor="subject">
                 <div className="flex align-items">
                   Event Description
-                  <span className="ml-auto opacity-75">Max. 500 characters</span>
+                  <span className="ml-auto opacity-75">
+                    Max. 500 characters
+                  </span>
                 </div>
               </label>
-              <input maxLength="500" rows="4" type="text" id="description" name="description" className="form-input px-3 py-2 rounded-md border-2 border-grey-600" onChange={(e) => handleChange(e.target.value, 'description')} />
+              <input
+                maxLength="500"
+                rows="4"
+                type="text"
+                id="description"
+                name="description"
+                className="form-input px-3 py-2 rounded-md border-2 border-grey-600"
+                onChange={(e) => handleChange(e.target.value, "description")}
+              />
             </div>
             <div className="flex flex-col col-span-2">
               <label htmlFor="first-name">Event Benner</label>
@@ -79,13 +98,16 @@ const CreateEvent = () => {
                   id="first-name"
                   name="first-name"
                   className="form-input px-3 py-2 rounded-md border-2 border-grey-600"
-                  accept={'image'}
+                  accept={"image"}
                   onChange={(e) => {
                     setImage(URL.createObjectURL(e.target.files[0]));
-                    handleChange(e.target.files[0], 'image');
+                    handleChange(e.target.files[0], "image");
                   }}
                 />
-                <button type="submit" className="bg-red-300 text-white font-bold py-2 px-4 rounded focus:ring focus:ring-red-500 hover:bg-red-700">
+                <button
+                  type="submit"
+                  className="bg-red-300 text-white font-bold py-2 px-4 rounded focus:ring focus:ring-red-500 hover:bg-red-700"
+                >
                   Browse File
                 </button>
               </div>
@@ -93,7 +115,13 @@ const CreateEvent = () => {
             <div className="flex flex-col col-span-2">
               <label htmlFor="first-name">Quota</label>
               <div className="flex shrink">
-                <input type="text" id="quota" name="quota" className="form-input px-3 py-2 rounded-md border-2 border-grey-600" onChange={(e) => handleChange(e.target.value, 'quota')} />
+                <input
+                  type="text"
+                  id="quota"
+                  name="quota"
+                  className="form-input px-3 py-2 rounded-md border-2 border-grey-600"
+                  onChange={(e) => handleChange(e.target.value, "quota")}
+                />
               </div>
             </div>
             <div className="flex flex-col col-span-2">
@@ -101,26 +129,52 @@ const CreateEvent = () => {
             </div>
             <div className="flex flex-col">
               <label htmlFor="first-name">Categori</label>
-              <input type="text" id="category" name="category" className="form-input px-3 py-2 rounded-md border-2 border-grey-600" onChange={(e) => handleChange(e.target.value, 'category')} />
+              <input
+                type="text"
+                id="category"
+                name="category"
+                className="form-input px-3 py-2 rounded-md border-2 border-grey-600"
+                onChange={(e) => handleChange(e.target.value, "category")}
+              />
             </div>
             <div className="flex flex-col">
               <label htmlFor="last-name">Latitude</label>
-              <input type="text" id="latidute" name="latidute" className="form-input px-3 py-2 rounded-md border-2 border-grey-600" />
+              <input
+                type="text"
+                id="latidute"
+                name="latidute"
+                className="form-input px-3 py-2 rounded-md border-2 border-grey-600"
+              />
             </div>
             <div className="flex flex-col col-span-2">
               <p className="font-bold">Date & Time</p>
             </div>
             <div className="flex flex-col">
               <label htmlFor="email">Date</label>
-              <input type="text" id="date" name="date" className="form-input px-3 py-2 rounded-md border-2 border-grey-600" onChange={(e) => handleChange(e.target.value, 'date')} />
+              <input
+                type="text"
+                id="date"
+                name="date"
+                className="form-input px-3 py-2 rounded-md border-2 border-grey-600"
+                onChange={(e) => handleChange(e.target.value, "date")}
+              />
             </div>
             <div className="flex flex-col">
               <label htmlFor="email">Time</label>
-              <input type="text" id="time" name="time" className="form-input px-3 py-2 rounded-md border-2 border-grey-600" onChange={(e) => handleChange(e.target.value, 'time')} />
+              <input
+                type="text"
+                id="time"
+                name="time"
+                className="form-input px-3 py-2 rounded-md border-2 border-grey-600"
+                onChange={(e) => handleChange(e.target.value, "time")}
+              />
             </div>
           </div>
           <div className="flex justify-end py-4">
-            <button type="submit" className="bg-red-300 text-white font-bold py-2 px-4 rounded focus:ring focus:ring-red-500 hover:bg-red-700">
+            <button
+              type="submit"
+              className="bg-red-300 text-white font-bold py-2 px-4 rounded focus:ring focus:ring-red-500 hover:bg-red-700"
+            >
               create my event
             </button>
           </div>

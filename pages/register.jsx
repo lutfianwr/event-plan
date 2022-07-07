@@ -2,11 +2,13 @@ import React from "react";
 import swal from "sweetalert";
 import { useState } from "react";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const router = useRouter();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,6 +25,8 @@ function Register() {
         localStorage.setItem("token", response.data.token);
         console.log(response.data.token);
         swal("Good job!", "Succecss Signup", "success");
+        router.push("/login");
+
         // navigate('/', { replace: true });
       })
       .catch(function (error) {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const CardEvent = (props) => {
   return (
@@ -9,7 +9,9 @@ const CardEvent = (props) => {
       <div className="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
         <div className="mb-8">
           <p className="text-gray-700 text-base">{props.date}</p>
-          <div className="text-gray-900 font-bold text-xl mb-2">{props.title}</div>
+          <div className="text-gray-900 font-bold text-xl mb-2">
+            {props.title}
+          </div>
           <p className="text-gray-700 text-base">{props.location}</p>
 
           <button

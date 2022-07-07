@@ -11,8 +11,11 @@ import Tooltip from "@mui/material/Tooltip";
 import Logout from "@mui/icons-material/Logout";
 import AddIcon from "@mui/icons-material/Add";
 import EventIcon from "@mui/icons-material/Event";
+import { useRouter } from "next/router";
 
 export default function AccountMenu() {
+  const router = useRouter();
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -23,7 +26,17 @@ export default function AccountMenu() {
   };
 
   const handleLogout = () => {
-    console.log("logout");
+    localStorage.removeItem("token");
+    router.push("/");
+  };
+  const handletoMyprofile = () => {
+    router.push("/myProfile/id"); // id is the id of the user]");
+  };
+  const handletoCreateEvent = () => {
+    router.push("/createEvent");
+  };
+  const handletoMyEvent = () => {
+    router.push("/myEvent");
   };
 
   return (
@@ -38,7 +51,7 @@ export default function AccountMenu() {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+            <Avatar sx={{ width: 32, height: 32 }}></Avatar>
           </IconButton>
         </Tooltip>
       </Box>
@@ -77,17 +90,17 @@ export default function AccountMenu() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem>
+        <MenuItem onClick={handletoMyprofile}>
           <Avatar /> Profile
         </MenuItem>
 
-        <MenuItem>
+        <MenuItem onClick={handletoMyEvent}>
           <ListItemIcon>
             <EventIcon fontSize="small" />
           </ListItemIcon>
           My Event
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={handletoCreateEvent}>
           <ListItemIcon>
             <AddIcon fontSize="small" />
           </ListItemIcon>
