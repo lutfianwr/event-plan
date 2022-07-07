@@ -1,11 +1,11 @@
 import React from 'react';
-import Layout from '../components/layout';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useRouter } from 'next/router';
+import Layout from '../../components/layout';
+import { useState } from 'react';
 import swal from 'sweetalert';
+import { useRouter } from 'next/router';
+import axios from 'axios';
 
-const CreateEvent = () => {
+const EditEvent = () => {
   const [description, setDescription] = useState('');
   const [event_name, setName] = useState('');
   const [category, setCategory] = useState('');
@@ -15,6 +15,7 @@ const CreateEvent = () => {
   const [time, setTime] = useState('');
   const [objSubmit, setObjSubmit] = useState('');
   const router = useRouter();
+  const { editEvent } = router.query;
 
   const addEvent = (e) => {
     const formData = new FormData();
@@ -23,8 +24,8 @@ const CreateEvent = () => {
     }
     e.preventDefault();
     axios({
-      method: 'post',
-      url: `http://3.86.179.206:80/events`,
+      method: 'put',
+      url: `http://3.86.179.206:80/events/${editEvent}`,
       data: formData,
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token'),
@@ -33,7 +34,7 @@ const CreateEvent = () => {
       .then((response) => {
         // handle success
         console.log(response);
-        swal('Good job!', 'Sukses Create Event ', 'success');
+        swal('Good job!', 'Sukses Edit ', 'success');
         router.push('/');
       })
       .catch(function (error) {
@@ -121,7 +122,7 @@ const CreateEvent = () => {
           </div>
           <div className="flex justify-end py-4">
             <button type="submit" className="bg-red-300 text-white font-bold py-2 px-4 rounded focus:ring focus:ring-red-500 hover:bg-red-700">
-              create my event
+              Edit Slur
             </button>
           </div>
         </form>
@@ -130,4 +131,4 @@ const CreateEvent = () => {
   );
 };
 
-export default CreateEvent;
+export default EditEvent;

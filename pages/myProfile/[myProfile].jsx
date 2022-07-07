@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import Layout from '../../components/layout';
+import Layout from '../../components/Layout';
 import swal from 'sweetalert';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 
-const MyProfile = () => {
+const MyProfiles = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [avatar_url, setAvatar] = useState('');
   const [loading, setLoading] = useState('');
   const [profile, setProfile] = useState();
-  const [reove, setRemove] = useState('');
+  const [remove, setRemove] = useState('');
+  const [objSubmit, setObjSubmit] = useState('');
 
   useEffect(() => {
     getmyProfile();
@@ -41,18 +42,28 @@ const MyProfile = () => {
       });
   };
 
-  const editProfile = () => {
+  const handleSubmit = async (e) => {
+    setLoading(true);
+    if (e !== undefined) {
+      e.preventDefault();
+    }
+    const formData = new FormData();
+    for (const key in objSubmit) {
+      formData.append(key, objSubmit[key]);
+    }
+    var requestOptions = {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+      body: formData,
+    };
     axios({
       method: 'put',
       url: `http://3.86.179.206:80/users`,
-      data: {
-        name: name,
-        email: email,
-        password: password,
-        avatar_url: avatar_url,
-      },
+      data: formData,
+
       headers: {
-        'Content-Type': 'application/json',
         Authorization: 'Bearer ' + localStorage.getItem('token'),
       },
     })
@@ -67,10 +78,15 @@ const MyProfile = () => {
         swal('Good job!', 'macan ', 'aing maccan');
       });
   };
+  const handleChange = (value, key) => {
+    let temp = { ...objSubmit };
+    temp[key] = value;
+    setObjSubmit(temp);
+  };
 
   const handleRemove = (id) => {
     axios
-      .delete(`https://virtserver.swaggerhub.com/iswanulumam/EventPlanningApp/1.0.0/users/${id}`, {
+      .delete(`http://3.86.179.206:80/users`, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: 'Bearer ' + localStorage.getItem('token'),
@@ -92,50 +108,31 @@ const MyProfile = () => {
       })
       .finally(() => {
         // setLoading(false);
+        router.push('/login');
       });
   };
   return (
     <Layout>
       <div className="flex justify-center p-10">
-        <div className="p-10 mx-16 mb-5  w-full bg-white">
+        {console.log(profile)}
+        <form className="p-10 mx-16 mb-5  w-full bg-white " onSubmit={(e) => handleSubmit(e)}>
           <div className="shadow sm:rounded-md sm:overflow-hidden">
             <div className="px-4 py-5 bg-white">
               <div className="grid grid-cols-3 border-b-2 border-zinc-700">
-                <h1 className="">Akun Information</h1>
+                <h1 className="">Account Information</h1>
               </div>
-
               <div className="mb-5 mt-5">
-                <label className="block text-sm font-medium text-gray-700">Photo</label>
                 <div className="mt-1 flex items-center">
-                  <span className="inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100">
-                    <svg className="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                    </svg>
-                  </span>
+                  <span className="inline-block max-h-80 max-w-7xl rounded-full overflow-hidden bg-gray-100">{/* <img src={profile.avatar_url} alt="" width="210" height="210" /> */}</span>
                   <input
                     type="file"
                     className="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    onChange={(e) => setAvatar(e.target.files[0])}
+                    onChange={(e) => {
+                      setAvatar(URL.createObjectURL(e.target.files[0]));
+                      handleChange(e.target.files[0], 'avatar_url');
+                      //console.log(e.target.files[0]);
+                    }}
                   />
-                </div>
-              </div>
-
-              <div className="mb-5 mt-5">
-                <label className="block text-sm font-medium text-gray-700">Cover photo</label>
-                <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                  <div className="space-y-1 text-center">
-                    <svg className="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="True">
-                      <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" />
-                    </svg>
-                    <div className="flex text-sm text-gray-600">
-                      <label className="relative cursor-pointer bg-white rounded-md font-medium text-red-600 hover:text-red-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-red-500">
-                        <span>Upload a file</span>
-                        <input id="file-upload" name="file-upload" type="file" className="sr-only" />
-                      </label>
-                      <p className="pl-1">or drag and drop</p>
-                    </div>
-                    <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
-                  </div>
                 </div>
               </div>
 
@@ -149,7 +146,7 @@ const MyProfile = () => {
                       id="name"
                       className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
                       placeholder="name"
-                      onChange={(e) => setName(e.target.value)}
+                      onChange={(e) => handleChange(e.target.value, 'name')}
                     />
                   </div>
                 </div>
@@ -164,7 +161,7 @@ const MyProfile = () => {
                       id="password"
                       className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
                       placeholder="*******"
-                      onChange={(e) => setPassword(e.target.value)}
+                      onChange={(e) => handleChange(e.target.value, 'password')}
                     />
                   </div>
                 </div>
@@ -179,33 +176,33 @@ const MyProfile = () => {
                       id="email"
                       className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
                       placeholder="@gmail.com"
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={(e) => handleChange(e.target.value, 'email')}
                     />
                   </div>
                 </div>
               </div>
             </div>
-            <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
+            <div className="px-4 py-3 text-right sm:px-6">
               <button
                 type="submit"
-                className="inline-flex justify-center py-2 px-4 mr-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-                onClick={() => handleRemove(profile.id)}
-              >
-                Delete
-              </button>
-              <button
-                type="submit"
-                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-grey-600 hover:bg-grey-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-grey-500"
-                onClick={() => editProfile()}
+                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-500 hover:bg-grey-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-grey-500"
+                onClick={() => handleSubmit()}
               >
                 Save
               </button>
             </div>
           </div>
-        </div>
+        </form>
+        <button
+          type="submit"
+          className="inline-flex justify-center py-2 px-4 mr-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+          onClick={() => handleRemove(profile.id)}
+        >
+          Delete
+        </button>
       </div>
     </Layout>
   );
 };
 
-export default MyProfile;
+export default MyProfiles;
