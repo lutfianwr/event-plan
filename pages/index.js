@@ -23,10 +23,9 @@ export default function Home(props) {
       headers: { "Content-Type": "application/json" },
     };
 
-    fetch("http://3.86.179.206:80/events", requestOptions)
+    fetch("https://group3.altaproject.online/events", requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.data);
         setEvent(data.data);
       })
       .catch((error) => {
@@ -47,7 +46,6 @@ export default function Home(props) {
       <div className={styles.container}>
         <Layout>
           <Hero />
-          {console.log(event)}
           <div className="grid grid-flow-row auto-rows-max grid-cols-2 md:grid-cols-4 lg:grid-cols-4 m-2 gap-3">
             {event.map((item) => (
               <Card
