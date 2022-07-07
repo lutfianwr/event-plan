@@ -14,9 +14,6 @@ const Detail = () => {
   const { id } = router.query;
   const [comments, setComments] = useState([]);
   const [commentInput, setCommentInput] = useState("");
-  let currentid = id;
-  console.log(currentid);
-  console.log(id);
 
   useEffect(() => {
     fetchData();
