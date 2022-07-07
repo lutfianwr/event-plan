@@ -25,7 +25,7 @@ const EditEvent = () => {
     e.preventDefault();
     axios({
       method: "put",
-      url: `http://3.86.179.206:80/events/${editEvent}`,
+      url: `https://group3.altaproject.online/events/${editEvent}`,
       data: formData,
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
@@ -33,7 +33,6 @@ const EditEvent = () => {
     })
       .then((response) => {
         // handle success
-        console.log(response);
         swal("Good job!", "Sukses Edit ", "success");
         router.push("/");
       })

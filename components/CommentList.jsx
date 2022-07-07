@@ -1,6 +1,6 @@
 import React from "react";
 
-function CommentList(props) {
+const CommentList = (props) => {
   return (
     <div>
       <div className=" mx-auto px-10 pb-10 item-start">
@@ -14,16 +14,15 @@ function CommentList(props) {
               />
             </div>
             <div className="flex-1 border rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
-              <strong>Sarah</strong>
-              <span className="text-xs text-gray-400"> 3:34 PM</span>
+              <strong>{props.name}</strong>
               <p className="text-sm"></p>
-              <div className="mt-4 flex items-center"></div>
+              <div className="mt-4 flex items-center">{props.comment}</div>
             </div>
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default CommentList;

@@ -21,7 +21,7 @@ const MyProfiles = () => {
   const getmyProfile = () => {
     axios({
       method: "get",
-      url: `http://3.86.179.206:80/myprofile`,
+      url: `https://group3.altaproject.online/myprofile`,
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("token"),
@@ -29,7 +29,6 @@ const MyProfiles = () => {
     })
       .then((response) => {
         // handle success
-        console.log(response);
         const results = response.data.data;
         setProfile(results);
       })
@@ -63,7 +62,7 @@ const MyProfiles = () => {
     };
     axios({
       method: "put",
-      url: `http://3.86.179.206:80/users`,
+      url: `https://group3.altaproject.online/users`,
       data: formData,
 
       headers: {
@@ -72,13 +71,12 @@ const MyProfiles = () => {
     })
       .then((response) => {
         // handle success
-        console.log(response);
-        swal("Good job!", "macan ", "aing maccan");
+        getmyProfile();
+        swal("Good job!", "Success ", "success");
       })
       .catch(function (error) {
         // handle error
         console.log(error);
-        swal("Good job!", "macan ", "aing maccan");
       })
       .finally(() => {
         setLoading(false);
@@ -92,7 +90,7 @@ const MyProfiles = () => {
 
   const handleRemove = (id) => {
     axios
-      .delete(`http://3.86.179.206:80/users`, {
+      .delete(`https://group3.altaproject.online/users`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + localStorage.getItem("token"),
@@ -100,12 +98,11 @@ const MyProfiles = () => {
       })
       .then((response) => {
         // handle success
-        console.log(response);
         const results = response.data.data;
         setRemove(results);
         swal({
           title: "Good job!",
-          text: "SUKSES DELETE DATA",
+          text: "SUCCESS DELETE ACCOUNT",
         });
       })
       .catch(function (error) {

@@ -29,10 +29,12 @@ const Detail = () => {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     };
-    await fetch(`http://3.86.179.206:80/events/${id}`, requestOptions)
+    await fetch(
+      `https://group3.altaproject.online/events/${id}`,
+      requestOptions
+    )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setEvent(data);
       })
       .catch((error) => {
@@ -48,10 +50,12 @@ const Detail = () => {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     };
-    await fetch(`http://3.86.179.206:80/comments/${id}`, requestOptions)
+    await fetch(
+      `https://group3.altaproject.online/comments/${id}`,
+      requestOptions
+    )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.data);
         setComments(data.data);
       })
       .catch((error) => {
@@ -64,6 +68,7 @@ const Detail = () => {
 
   const postComment = async (props) => {
     setLoading(true);
+
     const requestOptions = {
       method: "POST",
       headers: {
@@ -75,17 +80,19 @@ const Detail = () => {
         comment: commentInput,
       }),
     };
-    await fetch(`http://3.86.179.206:80/comments/${id}`, requestOptions)
+    await fetch(
+      `https://group3.altaproject.online/comments/${id}`,
+      requestOptions
+    )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         getComments();
       })
       .catch((error) => {
         console.log(error);
       })
       .finally(() => {
-        //setLoading(false);
+        setLoading(false);
       });
   };
 

@@ -13,25 +13,19 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://3.86.179.206:80/login", {
+      .post("https://group3.altaproject.online/login", {
         email: email,
         password: password,
       })
       .then((response) => {
-        // handle success
         console.log(response);
-
         localStorage.setItem("token", response.data.data.token);
-        console.log(response.data.data.token);
-        swal("Good job!", "Succecss Login", "success");
-
+        swal("Good job!", "Success Login", "success");
         router.push("/");
       })
       .catch(function (error) {
-        // handle error
         console.log(error);
       });
-    // .finally(() => setLoading(false));
   };
 
   return (

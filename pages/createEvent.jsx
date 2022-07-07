@@ -24,7 +24,7 @@ const CreateEvent = () => {
     e.preventDefault();
     axios({
       method: "post",
-      url: `http://3.86.179.206:80/events`,
+      url: `https://group3.altaproject.online/events`,
       data: formData,
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),

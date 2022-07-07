@@ -23,10 +23,9 @@ export default function Home(props) {
       headers: { "Content-Type": "application/json" },
     };
 
-    fetch("http://3.86.179.206:80/events", requestOptions)
+    fetch("https://group3.altaproject.online/events", requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.data);
         setEvent(data.data);
       })
       .catch((error) => {
