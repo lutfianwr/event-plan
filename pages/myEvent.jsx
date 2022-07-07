@@ -3,11 +3,15 @@ import CardEvent from "../components/CardEvent";
 import Layout from "../components/layout";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import swal from "sweetalert";
+import { Route } from "@mui/icons-material";
+import { useRouter } from "next/router";
 
 const MyEvent = () => {
   const [event, setEvent] = useState([]);
   const [loading, setLoading] = useState(true);
   const [remove, setRemove] = useState([]);
+  const router = useRouter();
 
   useEffect(() => {
     myEvent();
@@ -23,7 +27,7 @@ const MyEvent = () => {
       })
       .then((response) => {
         // handle success
-        //console.log(response);
+        console.log(response);
         const results = response.data.data;
         setEvent(results);
       })
@@ -35,6 +39,35 @@ const MyEvent = () => {
         setLoading(false);
       });
   };
+
+  const handleRemove = (id) => {
+    axios
+      .delete(`http://3.86.179.206:80/events/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then((response) => {
+        // handle success
+        console.log(response);
+        const results = response.data;
+        setRemove(results);
+        swal({
+          title: "Good job!",
+          text: "SUKSES DELETE DATA",
+        });
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .finally(() => {
+        // setLoading(false);
+        myEvent();
+      });
+  };
+
   if (loading) {
     return (
       <div className="flex bg-white w-full h-screen">
@@ -52,8 +85,8 @@ const MyEvent = () => {
               location={item.category}
               image={item.image}
               date={item.date}
-              onClickItem={() => router.push(`detail/${item.id}`)}
-              handleRemove={() => handleRemove(item.id)}
+              onClick={() => handleRemove(item.id)}
+              onClickEdit={() => router.push(`edit/${item.id}`)}
             />
           ))}
         </div>

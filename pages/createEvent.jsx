@@ -2,41 +2,61 @@ import React from "react";
 import Layout from "../components/layout";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useRouter } from "next/router";
+import swal from "sweetalert";
 
 const CreateEvent = () => {
-  const [product, setProduct] = useState([]);
+  const [description, setDescription] = useState("");
+  const [event_name, setName] = useState("");
+  const [category, setCategory] = useState("");
+  const [quota, setQuota] = useState();
+  const [image, setImage] = useState("");
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+  const [objSubmit, setObjSubmit] = useState("");
+  const router = useRouter();
 
-  useEffect(() => {
-    fetchEven();
-  }, []);
-
-  const fetchEven = () => {
-    axios
-      .get(
-        `https://virtserver.swaggerhub.com/iswanulumam/EventPlanningApp/1.0.0/events`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      )
+  const addEvent = (e) => {
+    const formData = new FormData();
+    for (const key in objSubmit) {
+      formData.append(key, objSubmit[key]);
+    }
+    e.preventDefault();
+    axios({
+      method: "post",
+      url: `http://3.86.179.206:80/events`,
+      data: formData,
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
       .then((response) => {
         // handle success
         console.log(response);
-        const results = response.data.data;
-        setProduct(results);
+        swal("Good job!", "Sukses Create Event ", "success");
+        router.push("/");
       })
       .catch(function (error) {
         // handle error
         console.log(error);
       });
+    // .finally(() => setLoading(false));
   };
+
+  const handleChange = (value, key) => {
+    let temp = { ...objSubmit };
+    temp[key] = value;
+    setObjSubmit(temp);
+  };
+
   return (
     <Layout>
       <h1 className="text-2xl font-bold xl:ml-28 pt-5">Create Event</h1>
       <div className="flex justify-center p-10">
-        <form className="border-2 border-grey-600 p-10 mx-16 mb-5 w-full bg-white">
+        <form
+          className="border-2 border-grey-600 p-10 mx-16 mb-5 w-full bg-white"
+          onSubmit={(e) => addEvent(e)}
+        >
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-col col-span-2">
               <p className="font-bold">Basic Info</p>
@@ -48,7 +68,7 @@ const CreateEvent = () => {
                 id="event-title"
                 name="event-title"
                 className="form-input px-3 py-2 rounded-md border-2 border-grey-600"
-                required
+                onChange={(e) => handleChange(e.target.value, "event_name")}
               />
             </div>
             <div className="flex flex-col col-span-2">
@@ -60,25 +80,29 @@ const CreateEvent = () => {
                   </span>
                 </div>
               </label>
-              <textarea
+              <input
                 maxLength="500"
                 rows="4"
                 type="text"
                 id="description"
                 name="description"
                 className="form-input px-3 py-2 rounded-md border-2 border-grey-600"
-                required
+                onChange={(e) => handleChange(e.target.value, "description")}
               />
             </div>
             <div className="flex flex-col col-span-2">
               <label htmlFor="first-name">Event Benner</label>
               <div className="flex shrink">
                 <input
-                  type="text"
+                  type="file"
                   id="first-name"
                   name="first-name"
                   className="form-input px-3 py-2 rounded-md border-2 border-grey-600"
-                  required
+                  accept={"image"}
+                  onChange={(e) => {
+                    setImage(URL.createObjectURL(e.target.files[0]));
+                    handleChange(e.target.files[0], "image");
+                  }}
                 />
                 <button
                   type="submit"
@@ -93,10 +117,10 @@ const CreateEvent = () => {
               <div className="flex shrink">
                 <input
                   type="text"
-                  id="Quota"
-                  name="Quota"
+                  id="quota"
+                  name="quota"
                   className="form-input px-3 py-2 rounded-md border-2 border-grey-600"
-                  required
+                  onChange={(e) => handleChange(e.target.value, "quota")}
                 />
               </div>
             </div>
@@ -104,13 +128,13 @@ const CreateEvent = () => {
               <p className="font-bold">Location</p>
             </div>
             <div className="flex flex-col">
-              <label htmlFor="first-name">Longitude</label>
+              <label htmlFor="first-name">Categori</label>
               <input
                 type="text"
-                id="longitude"
-                name="longitude"
+                id="category"
+                name="category"
                 className="form-input px-3 py-2 rounded-md border-2 border-grey-600"
-                required
+                onChange={(e) => handleChange(e.target.value, "category")}
               />
             </div>
             <div className="flex flex-col">
@@ -120,7 +144,6 @@ const CreateEvent = () => {
                 id="latidute"
                 name="latidute"
                 className="form-input px-3 py-2 rounded-md border-2 border-grey-600"
-                required
               />
             </div>
             <div className="flex flex-col col-span-2">
@@ -133,7 +156,7 @@ const CreateEvent = () => {
                 id="date"
                 name="date"
                 className="form-input px-3 py-2 rounded-md border-2 border-grey-600"
-                required
+                onChange={(e) => handleChange(e.target.value, "date")}
               />
             </div>
             <div className="flex flex-col">
@@ -143,7 +166,7 @@ const CreateEvent = () => {
                 id="time"
                 name="time"
                 className="form-input px-3 py-2 rounded-md border-2 border-grey-600"
-                required
+                onChange={(e) => handleChange(e.target.value, "time")}
               />
             </div>
           </div>
