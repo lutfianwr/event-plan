@@ -71,18 +71,21 @@ const MyEvent = () => {
   } else {
     return (
       <Layout>
-        <div className="flex justify-center p-10">
-          {event.map((item) => (
-            <CardEvent
-              key={item.id}
-              title={item.event_name}
-              location={item.category}
-              image={item.image}
-              date={item.date}
-              onClick={() => handleRemove(item.id)}
-              onClickEdit={() => router.push(`edit/${item.id}`)}
-            />
-          ))}
+        <div className="h-screen">
+          <h1 className="text-2xl font-bold md:ml-12 pt-5 mb-3">Event</h1>
+          <div className="flex flex-col justify-center">
+            {event.map((item) => (
+              <CardEvent
+                key={item.id}
+                title={item.event_name}
+                location={item.category}
+                image={item.image}
+                date={item.date}
+                onClick={() => handleRemove(item.id)}
+                onClickEdit={() => router.push(`edit/${item.id}`)}
+              />
+            ))}
+          </div>
         </div>
       </Layout>
     );

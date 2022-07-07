@@ -71,6 +71,7 @@ const MyProfiles = () => {
     })
       .then((response) => {
         // handle success
+        getmyProfile();
         swal("Good job!", "Success ", "success");
       })
       .catch(function (error) {
@@ -125,7 +126,7 @@ const MyProfiles = () => {
       <Layout>
         <div className="flex justify-center p-10">
           <form
-            className="p-10 mx-16 mb-5  w-full bg-white "
+            className="p-10 mt-8 w-full bg-white "
             onSubmit={(e) => handleSubmit(e)}
           >
             <div className="shadow sm:rounded-md sm:overflow-hidden">
@@ -223,14 +224,16 @@ const MyProfiles = () => {
               </div>
             </div>
           </form>
-        </div>{" "}
-        <button
-          type="submit"
-          className=" justify-center py-2 px-4 mr-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-          onClick={() => handleRemove(profile.id)}
-        >
-          Delete
-        </button>
+        </div>
+        <div className="flex justify-center mb-8">
+          <button
+            type="submit"
+            className="py-2 px-4 mr-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+            onClick={() => handleRemove(profile.id)}
+          >
+            Delete My Profile
+          </button>
+        </div>
       </Layout>
     );
   }

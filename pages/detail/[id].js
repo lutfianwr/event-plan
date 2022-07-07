@@ -68,6 +68,7 @@ const Detail = () => {
 
   const postComment = async (props) => {
     setLoading(true);
+
     const requestOptions = {
       method: "POST",
       headers: {
@@ -79,7 +80,10 @@ const Detail = () => {
         comment: commentInput,
       }),
     };
-    await fetch(`http://3.86.179.206:80/comments/${id}`, requestOptions)
+    await fetch(
+      `https://group3.altaproject.online/comments/${id}`,
+      requestOptions
+    )
       .then((response) => response.json())
       .then((data) => {
         getComments();
@@ -88,7 +92,7 @@ const Detail = () => {
         console.log(error);
       })
       .finally(() => {
-        //setLoading(false);
+        setLoading(false);
       });
   };
 
@@ -101,7 +105,7 @@ const Detail = () => {
   } else {
     return (
       <Layout>
-        <div className="bg-red-200 h-full p-5 lg:px-20">
+        <div className="bg-white h-full p-5 lg:px-20">
           <div className="bg-white">
             <div className="hero flex justify-center w-full">
               <div className=" flex flex-col lg:flex-row">
@@ -135,7 +139,7 @@ const Detail = () => {
                       type="button"
                       data-mdb-ripple="true"
                       data-mdb-ripple-color="light"
-                      className="w-full px-6 py-2.5 bg-red-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+                      className="w-full px-6 py-2.5 bg-[#FF9900] text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-orange-700 hover:shadow-lg focus:bg-orange-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-orange-800 active:shadow-lg transition duration-150 ease-in-out"
                       onClick={() => console.log(router.query)}
                     >
                       Join

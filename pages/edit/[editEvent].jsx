@@ -104,12 +104,6 @@ const EditEvent = () => {
                     handleChange(e.target.files[0], "image");
                   }}
                 />
-                <button
-                  type="submit"
-                  className="bg-red-300 text-white font-bold py-2 px-4 rounded focus:ring focus:ring-red-500 hover:bg-red-700"
-                >
-                  Browse File
-                </button>
               </div>
             </div>
             <div className="flex flex-col col-span-2">
@@ -173,9 +167,9 @@ const EditEvent = () => {
           <div className="flex justify-end py-4">
             <button
               type="submit"
-              className="bg-red-300 text-white font-bold py-2 px-4 rounded focus:ring focus:ring-red-500 hover:bg-red-700"
+              className="bg-[#FF9900] text-white font-bold py-2 px-4 rounded focus:ring focus:ring-orange-500 hover:bg-orange-700"
             >
-              Edit Slur
+              Edit
             </button>
           </div>
         </form>
