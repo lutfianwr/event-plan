@@ -3,19 +3,24 @@ import Layout from "../../components/layout";
 import Attendees from "../../components/Attendees";
 import CommentForms from "../../components/CommentForms";
 import CommentList from "../../components/CommentList";
-//import Map from "../../components/Map";
+import Map from "../../components/Map";
 import Head from "next/head";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
-function Detail() {
+const Detail = () => {
   const [event, setEvent] = useState([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
   const { id } = router.query;
+  const [comments, setComments] = useState([]);
+  const [commentInput, setCommentInput] = useState("");
 
   useEffect(() => {
     fetchData();
+  }, []);
+
+  useEffect(() => {
     getComments();
   }, []);
 
@@ -46,14 +51,41 @@ function Detail() {
     await fetch(`http://3.86.179.206:80/comments/${id}`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        setEvent(data);
+        console.log(data.data);
+        setComments(data.data);
       })
       .catch((error) => {
         console.log(error);
       })
       .finally(() => {
         setLoading(false);
+      });
+  };
+
+  const postComment = async (props) => {
+    setLoading(true);
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+
+      body: JSON.stringify({
+        comment: commentInput,
+      }),
+    };
+    await fetch(`http://3.86.179.206:80/comments/${id}`, requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        getComments();
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        //setLoading(false);
       });
   };
 
@@ -66,8 +98,7 @@ function Detail() {
   } else {
     return (
       <Layout>
-        <div className="bg-red-200 h-full p-5 lg:px-20">
-          {console.log(event.data.image)}
+        <div className="bg-white h-full p-5 lg:px-20">
           <div className="bg-white">
             <div className="hero flex justify-center w-full">
               <div className=" flex flex-col lg:flex-row">
@@ -85,9 +116,9 @@ function Detail() {
                     </h5>
 
                     <p className="text-gray-600 text-xs">Hosted by</p>
-                    {/* <p className="text-gray-900 text-s pb-2 lg:pb-5">
+                    <p className="text-gray-900 text-s pb-2 lg:pb-5">
                       {event.data.user.name}
-                    </p> */}
+                    </p>
                     <p className="text-gray-600 text-s pb-2">
                       {event.data.category}
                     </p>
@@ -101,7 +132,7 @@ function Detail() {
                       type="button"
                       data-mdb-ripple="true"
                       data-mdb-ripple-color="light"
-                      className="w-full px-6 py-2.5 bg-red-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+                      className="w-full px-6 py-2.5 bg-[#FF9900] text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-orange-700 hover:shadow-lg focus:bg-orange-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-orange-800 active:shadow-lg transition duration-150 ease-in-out"
                       onClick={() => console.log(router.query)}
                     >
                       Join
@@ -134,14 +165,24 @@ function Detail() {
             </div>
 
             <div>
-              <CommentForms></CommentForms>
-              <CommentList></CommentList>
+              <CommentForms
+                onChange={(e) => setCommentInput(e.target.value)}
+                submitComment={() => postComment()}
+              />
+
+              {comments.map((comment) => (
+                <CommentList
+                  key={comment.id}
+                  comment={comment.comment}
+                  name={comment.name}
+                />
+              ))}
             </div>
           </div>
         </div>
       </Layout>
     );
   }
-}
+};
 
 export default Detail;

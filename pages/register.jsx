@@ -37,17 +37,23 @@ function Register() {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row items-center justify-center bg-[#F4B4B4]">
-      <img
-        className="object-cover w-full max-w-xl rounded-md lg:h-screen"
-        src="https://lambeturah.id/wp-content/uploads/2020/02/Kamus-KBBI-88-e1580661363914.png"
-        width="600"
-        height="750"
-        alt=""
-      />
+    <div className="flex flex-col lg:flex-row items-center justify-center bg-[#F4DBB4]">
+      <div className="backdrop-opacity-10 backdrop-invert bg-slate-500/30 relative w-full max-w-xl">
+        <img
+          className="object-cover w-full max-w-xl rounded-md lg:h-screen opacity-50"
+          src="https://talvinsingh.com/wp-content/uploads/2020/09/merlin_170369790_63d02a4c-82f8-441a-ac7c-c395828b7961-mobileMasterAt3x.jpg"
+          alt=""
+        />
+        <div className="absolute bottom-36 left-36 md:bottom-72 md:left-44">
+          <h1 className="font-bold text-3xl text-center text-white">
+            KAPANGIH
+          </h1>
+          <p className="text-muted text-center text-white"> Join The World</p>
+        </div>
+      </div>
       <div className="w-full mt-2 lg:h-screen flex justify-center items-center  ">
         <form
-          className="flex flex-col justify-center text-black border shadow-xl border-black  w-full md:w-[45vw] lg:w-[40vw]  p-10 h-96  rounded-lg "
+          className="flex flex-col justify-center text-black w-full md:w-[45vw] lg:w-[40vw]  p-10 h-96  rounded-lg "
           onSubmit={(e) => handleSubmit(e)}
         >
           <div className="text-xl font-semibold lg:mt-3 pl-3">Register</div>

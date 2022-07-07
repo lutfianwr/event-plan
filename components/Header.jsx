@@ -18,9 +18,13 @@ const Header = () => {
   }
 
   return (
-    <nav className="flex items-center justify-between flex-wrap p-6 border-b-2">
+    <nav className="flex items-center justify-between flex-wrap p-6 border-b-2 drop-shadow-md sticky top-0 bg-white">
       <div className="flex items-center flex-shrink-0 mr-6">
-        <img src="" alt="logo" className="h-8" />
+        <img
+          src="https://th.bing.com/th/id/OIP.mMZYVKRM9liWWB_ErBOJZgAAAA?pid=ImgDet&rs=1"
+          alt="logo"
+          className="h-8"
+        />
       </div>
 
       <div className="w-full flex-grow flex lg:items-center lg:w-auto">
@@ -44,7 +48,7 @@ const Header = () => {
               </Link>
             </div>
 
-            <CgFormatSlash className="inline-block text-white" />
+            <CgFormatSlash className="inline-block text-gray-600" />
             <div className="px-2">
               <Link
                 href="/register"

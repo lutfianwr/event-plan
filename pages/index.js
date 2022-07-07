@@ -44,24 +44,23 @@ export default function Home(props) {
     );
   } else {
     return (
-      <div className={styles.container}>
-        <Layout>
-          <Hero />
-          {console.log(event)}
-          <div className="grid grid-flow-row auto-rows-max grid-cols-2 md:grid-cols-4 lg:grid-cols-4 m-2 gap-3">
-            {event.map((item) => (
-              <Card
-                key={item.id}
-                title={item.event_name}
-                location={item.category}
-                image={item.image}
-                date={item.date}
-                onClickItem={() => router.push(`/detail/${item.id}`)}
-              />
-            ))}
-          </div>
-        </Layout>
-      </div>
+      <Layout>
+        <Hero />
+        <h1 className="text-2xl font-bold md:ml-12 pt-5">Event</h1>
+        {console.log(event)}
+        <div className="grid grid-flow-row auto-rows-max grid-cols-2 md:grid-cols-4 lg:grid-cols-4 m-2">
+          {event.map((item) => (
+            <Card
+              key={item.id}
+              title={item.event_name}
+              location={item.category}
+              image={item.image}
+              date={item.date}
+              onClickItem={() => router.push(`/detail/${item.id}`)}
+            />
+          ))}
+        </div>
+      </Layout>
     );
   }
 }
