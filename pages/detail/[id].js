@@ -1,30 +1,30 @@
-import React from 'react';
-import Layout from '../../components/layout';
-import Attendees from '../../components/Attendees';
-import CommentForms from '../../components/CommentForms';
-import CommentList from '../../components/CommentList';
-import Map from '../../components/Map';
-import Head from 'next/head';
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import React from "react";
+import Layout from "../../components/layout";
+import Attendees from "../../components/Attendees";
+import CommentForms from "../../components/CommentForms";
+import CommentList from "../../components/CommentList";
+//import Map from "../../components/Map";
+import Head from "next/head";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 function Detail() {
   const [event, setEvent] = useState([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const { id } = router.query;
 
   useEffect(() => {
     fetchData();
+    getComments();
   }, []);
 
-  const fetchData = async () => {
+  const fetchData = async (props) => {
     const requestOptions = {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
     };
-    const { detail } = router.query;
-    console.log(detail);
-    fetch(`https://my-json-server.typicode.com/Maruta45/mockjson/events/${detail}`, requestOptions)
+    await fetch(`http://3.86.179.206:80/events/${id}`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -37,6 +37,26 @@ function Detail() {
         setLoading(false);
       });
   };
+
+  const getComments = async (props) => {
+    const requestOptions = {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    };
+    await fetch(`http://3.86.179.206:80/comments/${id}`, requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setEvent(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
   if (loading) {
     return (
       <div className="flex bg-white w-full h-screen">
@@ -47,23 +67,33 @@ function Detail() {
     return (
       <Layout>
         <div className="bg-red-200 h-full p-5 lg:px-20">
+          {console.log(event.data.image)}
           <div className="bg-white">
-            <div className="hero flex justify-center w-fit">
+            <div className="hero flex justify-center w-full">
               <div className=" flex flex-col lg:flex-row">
                 <img
-                  className=" w-full h-auto object-cover"
-                  src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/australia-day-club-event-video-banner-design-template-956e38b1e34f16e4fe55fb23f1084457_screen.jpg?ts=1577355840"
+                  className=" w-full lg:w-96 h-auto object-cover"
+                  src={event.data.image}
                   alt=""
                 />
                 <div className="p-6 flex flex-col justify-between">
                   <div>
-                    <p className="text-gray-600 text-s pb-5 lg:pb-10">26 January 2022</p>
+                    <p className="text-gray-600 text-s pb-5 lg:pb-10"></p>
 
-                    <h5 className="text-gray-900 text-xl font-medium pb-2 lg:pb-5">Australia Day Live Music DJ</h5>
+                    <h5 className="text-gray-900 text-xl font-medium pb-2 lg:pb-5">
+                      {event.data.event_name}
+                    </h5>
 
                     <p className="text-gray-600 text-xs">Hosted by</p>
-                    <p className="text-gray-900 text-s pb-2 lg:pb-5">Sydney Club</p>
-                    <p className="text-gray-600 text-s pb-6">Australia</p>
+                    {/* <p className="text-gray-900 text-s pb-2 lg:pb-5">
+                      {event.data.user.name}
+                    </p> */}
+                    <p className="text-gray-600 text-s pb-2">
+                      {event.data.category}
+                    </p>
+                    <p className="text-gray-600 text-xs pb-6">
+                      quota {event.data.quota} persons
+                    </p>
                   </div>
 
                   <div className="">
@@ -82,15 +112,12 @@ function Detail() {
             </div>
             <div className="desc flex flex-col lg:flex-row p-10">
               <div className="pb-10 lg:w-3/4 lg:pr-10">
-                Australia Day is the official national day of Australia. Observed annually on 26 January, it marks the 1788 landing of the First Fleet at Sydney Cove and raising of the Union Flag by Arthur Phillip following days of
-                exploration of Port Jackson in New South Wales. In present-day Australia, celebrations aim to reflect the diverse society and landscape of the nation and are marked by community and family events, reflections on Australian
-                history, official community awards and citizenship ceremonies welcoming new members of the Australian community.{' '}
+                {event.data.description}
               </div>
               <div className="DayTime">
                 <div className="font-medium">Date & Time</div>
-                <div className="location mb-5">July 15, 2022, 10:00 PM</div>
-                <div className="font-medium">Location</div>
-                <div className="location  mb-5">Australia</div>
+                <div className="location mb-5"> {event.data.date}</div>
+                <div className="font-medium pb-10">{event.data.time}</div>
                 <a href="#map" className="">
                   view map
                 </a>
@@ -110,7 +137,6 @@ function Detail() {
               <CommentForms></CommentForms>
               <CommentList></CommentList>
             </div>
-            <Map></Map>
           </div>
         </div>
       </Layout>

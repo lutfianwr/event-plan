@@ -1,7 +1,7 @@
-import React from 'react';
-import Layout from '../components/layout';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from "react";
+import Layout from "../components/layout";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const CreateEvent = () => {
   const [product, setProduct] = useState([]);
@@ -12,12 +12,15 @@ const CreateEvent = () => {
 
   const fetchEven = () => {
     axios
-      .get(`https://virtserver.swaggerhub.com/iswanulumam/EventPlanningApp/1.0.0/events`, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + localStorage.getItem('token'),
-        },
-      })
+      .get(
+        `https://virtserver.swaggerhub.com/iswanulumam/EventPlanningApp/1.0.0/events`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
       .then((response) => {
         // handle success
         console.log(response);
@@ -40,24 +43,36 @@ const CreateEvent = () => {
             </div>
             <div className="flex flex-col col-span-2">
               <label htmlFor="subject">Event Title</label>
-              <input type="text" id="event-title" name="event-title" className="form-input px-3 py-2 rounded-md border-2 border-grey-600" required />
+              <input
+                type="text"
+                id="event-title"
+                name="event-title"
+                className="form-input px-3 py-2 rounded-md border-2 border-grey-600"
+                required
+              />
             </div>
             <div className="flex flex-col col-span-2">
               <label htmlFor="subject">
                 <div className="flex align-items">
                   Event Description
-                  <span className="ml-auto opacity-75">Max. 500 characters</span>
+                  <span className="ml-auto opacity-75">
+                    Max. 500 characters
+                  </span>
                 </div>
               </label>
-              <textarea maxLength="500" rows="4" type="text" id="description" name="description" className="form-input px-3 py-2 rounded-md border-2 border-grey-600" required />
+              <textarea
+                maxLength="500"
+                rows="4"
+                type="text"
+                id="description"
+                name="description"
+                className="form-input px-3 py-2 rounded-md border-2 border-grey-600"
+                required
+              />
             </div>
             <div className="flex flex-col col-span-2">
               <label htmlFor="first-name">Event Benner</label>
               <div className="flex shrink">
-<<<<<<< HEAD
-                <input type="text" id="first-name" name="first-name" className="form-input px-3 py-2 rounded-md border-2 border-grey-600" required />
-                <button type="submit" className="bg-red-300 text-white font-bold py-2 px-4 rounded focus:ring focus:ring-red-500 hover:bg-red-700">
-=======
                 <input
                   type="text"
                   id="first-name"
@@ -69,7 +84,6 @@ const CreateEvent = () => {
                   type="submit"
                   className="bg-red-300 text-white font-bold py-2 px-4 rounded focus:ring focus:ring-red-500 hover:bg-red-700"
                 >
->>>>>>> d975b124a1820f5c4d2f2a085c57b6f047583ce5
                   Browse File
                 </button>
               </div>
@@ -77,7 +91,13 @@ const CreateEvent = () => {
             <div className="flex flex-col col-span-2">
               <label htmlFor="first-name">Quota</label>
               <div className="flex shrink">
-                <input type="text" id="Quota" name="Quota" className="form-input px-3 py-2 rounded-md border-2 border-grey-600" required />
+                <input
+                  type="text"
+                  id="Quota"
+                  name="Quota"
+                  className="form-input px-3 py-2 rounded-md border-2 border-grey-600"
+                  required
+                />
               </div>
             </div>
             <div className="flex flex-col col-span-2">
@@ -85,33 +105,53 @@ const CreateEvent = () => {
             </div>
             <div className="flex flex-col">
               <label htmlFor="first-name">Longitude</label>
-              <input type="text" id="longitude" name="longitude" className="form-input px-3 py-2 rounded-md border-2 border-grey-600" required />
+              <input
+                type="text"
+                id="longitude"
+                name="longitude"
+                className="form-input px-3 py-2 rounded-md border-2 border-grey-600"
+                required
+              />
             </div>
             <div className="flex flex-col">
               <label htmlFor="last-name">Latitude</label>
-              <input type="text" id="latidute" name="latidute" className="form-input px-3 py-2 rounded-md border-2 border-grey-600" required />
+              <input
+                type="text"
+                id="latidute"
+                name="latidute"
+                className="form-input px-3 py-2 rounded-md border-2 border-grey-600"
+                required
+              />
             </div>
             <div className="flex flex-col col-span-2">
               <p className="font-bold">Date & Time</p>
             </div>
             <div className="flex flex-col">
               <label htmlFor="email">Date</label>
-              <input type="text" id="date" name="date" className="form-input px-3 py-2 rounded-md border-2 border-grey-600" required />
+              <input
+                type="text"
+                id="date"
+                name="date"
+                className="form-input px-3 py-2 rounded-md border-2 border-grey-600"
+                required
+              />
             </div>
             <div className="flex flex-col">
               <label htmlFor="email">Time</label>
-              <input type="text" id="time" name="time" className="form-input px-3 py-2 rounded-md border-2 border-grey-600" required />
+              <input
+                type="text"
+                id="time"
+                name="time"
+                className="form-input px-3 py-2 rounded-md border-2 border-grey-600"
+                required
+              />
             </div>
           </div>
           <div className="flex justify-end py-4">
-<<<<<<< HEAD
-            <button type="submit" className="bg-red-300 text-white font-bold py-2 px-4 rounded focus:ring focus:ring-red-500 hover:bg-red-700">
-=======
             <button
               type="submit"
               className="bg-red-300 text-white font-bold py-2 px-4 rounded focus:ring focus:ring-red-500 hover:bg-red-700"
             >
->>>>>>> d975b124a1820f5c4d2f2a085c57b6f047583ce5
               create my event
             </button>
           </div>

@@ -56,7 +56,7 @@ export default function Home(props) {
                 location={item.category}
                 image={item.image}
                 date={item.date}
-                onClickItem={() => router.push(`detail/${item.id}`)}
+                onClickItem={() => router.push(`/detail/${item.id}`)}
               />
             ))}
           </div>

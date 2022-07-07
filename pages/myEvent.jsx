@@ -1,8 +1,8 @@
-import React from 'react';
-import CardEvent from '../components/CardEvent';
-import Layout from '../components/layout';
-import axios from 'axios';
-import { useState, useEffect } from 'react';
+import React from "react";
+import CardEvent from "../components/CardEvent";
+import Layout from "../components/layout";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 const MyEvent = () => {
   const [event, setEvent] = useState([]);
@@ -17,13 +17,13 @@ const MyEvent = () => {
     axios
       .get(`http://3.86.179.206:80/my-events`, {
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + localStorage.getItem('token'),
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
         },
       })
       .then((response) => {
         // handle success
-        console.log(response);
+        //console.log(response);
         const results = response.data.data;
         setEvent(results);
       })
@@ -45,7 +45,17 @@ const MyEvent = () => {
     return (
       <Layout>
         <div className="flex justify-center p-10">
-          <CardEvent></CardEvent>
+          {event.map((item) => (
+            <CardEvent
+              key={item.id}
+              title={item.event_name}
+              location={item.category}
+              image={item.image}
+              date={item.date}
+              onClickItem={() => router.push(`detail/${item.id}`)}
+              handleRemove={() => handleRemove(item.id)}
+            />
+          ))}
         </div>
       </Layout>
     );
