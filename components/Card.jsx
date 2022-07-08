@@ -18,7 +18,7 @@ function Card(props) {
           />
           <div className="px-3 py-2">
             <p className="mt-2 text-bold">{props.title}</p>
-            <div className="text-center text-lg font-semibold  ">
+            <div className="text-center md:text-lg md:font-semibold  ">
               <p className="">{props.date}</p>
               <p className="">{props.location}</p>
             </div>
